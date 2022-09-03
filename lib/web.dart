@@ -14,6 +14,8 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
+
+
 class _HomeState extends State<Home> {
 
   late WebViewController _webViewController;
@@ -23,9 +25,9 @@ class _HomeState extends State<Home> {
 
 
 
-
   @override
   Widget build(BuildContext context) {
+
 
     void showToast() {
       setState(() {
@@ -46,8 +48,6 @@ class _HomeState extends State<Home> {
         appBar: AppBar(
           backgroundColor: Colors.black87,
           elevation: 0,
-          title: const Text('H E L L O', style: TextStyle(color: Colors.red),),
-          centerTitle: true,
           actions: [
             IconButton(onPressed: () => _webViewController.goBack(), icon: const Icon(Icons.refresh , color: Colors.red)),
           ],
@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
             icon: const Icon(Icons.arrow_back, color: Colors.red),
           ),
         ),
-        body: Stack(
+        body: Column(
           children: [
             if(!isError)
               webProgress < 1 ? SizedBox(
@@ -75,7 +75,7 @@ class _HomeState extends State<Home> {
               ) : const SizedBox(),
             Expanded(
               child: Visibility(
-                visible: _isVisible,
+            visible: _isVisible,
               child: WebView(
                 initialUrl: 'https://toptech.shop',
                 javascriptMode: JavascriptMode.unrestricted,
@@ -88,23 +88,20 @@ class _HomeState extends State<Home> {
                   showToast();
                 }),
               ),
-              ),
-            ),
+              ),  ),
             if (isError)
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                Center(
+                  child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 250),
                   child: Column(
-                  children: <Widget>[
-                    Lottie.asset('images/int.json'),
-                    ElevatedButton(onPressed: () {_webViewController.reload(); showToast(); isError= false;}, child: Icon(Icons.refresh))
+                    children: <Widget>[
+                      Lottie.asset('images/int.json'),
+                      ElevatedButton(onPressed: () {_webViewController.reload(); showToast(); isError= false;}, child: Icon(Icons.refresh))
 
-    ],
-               ),
-                )
+                    ],
 
-
-            ),
+                  ),
+                ),),
           ],
         ),
 

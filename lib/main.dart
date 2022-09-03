@@ -29,22 +29,20 @@ class _HomePageState extends State<HomePage> {
   bool isDeviceConnected = false;
   bool isAlertSet = false;
 
-  @override
-  void initState() {
-    getConnectivity();
-    super.initState();
-  }
 
   getConnectivity() =>
       subscription = Connectivity().onConnectivityChanged.listen(
             (ConnectivityResult result) async {
           isDeviceConnected = await InternetConnectionChecker().hasConnection;
-          if (!isDeviceConnected && isAlertSet == false) {
-            showDialogBox();
-            setState(() => isAlertSet = true);
-          }
         },
       );
+
+
+  @override
+  void initState() {
+    getConnectivity();
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -61,6 +59,7 @@ class _HomePageState extends State<HomePage> {
           const Text('TOP TECH', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.red),)
         ],
       ),
+
       backgroundColor: Colors.white,
       nextScreen: const Home(),
       splashIconSize: 450,
